@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
+
 function Footer() {
   return (
     <footer className='border-top text-center small text-muted py-3'>
