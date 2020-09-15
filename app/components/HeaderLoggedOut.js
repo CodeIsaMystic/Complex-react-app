@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , useContext } from "react";
 import Axios from "axios";
+import ExampleContext from '../ExampleContext';
 
 
 function HeaderLoggedOut(props) {
+
+  const {setLoggedIn} = useContext(ExampleContext);
 
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
@@ -11,10 +14,13 @@ function HeaderLoggedOut(props) {
     e.preventDefault();
 
     try {
-      const response = await Axios.post('http://localhost:8080/login', {username, password});
+      const response = await Axios.post('/login', {username, password});
       if(response.data) {
-        console.log(response.data);
-        props.setLoggedIn(true);
+        //console.log(response.data);
+        localStorage.setItem("complexappToken", response.data.token);
+        localStorage.setItem("complexappUsername", response.data.username);
+        localStorage.setItem("complexappAvatar", response.data.avatar);
+        setLoggedIn(true);
       } else {
         alert("Incorrect Name or Password !..");
       }

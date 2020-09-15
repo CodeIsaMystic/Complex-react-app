@@ -14,7 +14,7 @@ function HomeGuest() {
     e.preventDefault();
     //alert("hello world");
     try {
-      await Axios.post('http://localhost:8080/register', { username, email, password });
+      await Axios.post('/register', { username, email, password });
       alert("Success");
     } catch(error) {
       alert("error");
