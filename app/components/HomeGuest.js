@@ -1,9 +1,25 @@
 import React from 'react';
+import Axios from 'axios';
 
 // Components
 import Page from './Page';
 
 function HomeGuest() {
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    //alert("hello world");
+    try {
+      await Axios.post('http://localhost:8080/register', {
+        username: "test2", email: "test2@test.com", password: "azerty123456"
+      });
+      alert("Success");
+    } catch(error) {
+      alert("error");
+    }
+
+  }
+
   return (
     
     <Page wide={true} title="Welcome ">
@@ -13,7 +29,7 @@ function HomeGuest() {
           <p className='lead text-muted'>Are you sick of short tweets and impersonal &ldquo;shared&rdquo; posts that are reminiscent of the late 90&rsquo;s email forwards? We believe getting back to actually writing is the key to enjoying the internet again.</p>
         </div>
         <div className='col-lg-5 pl-lg-5 pb-3 py-lg-5'>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className='form-group'>
               <label htmlFor='username-register' className='text-muted mb-1'>
                 <small>Username</small>
