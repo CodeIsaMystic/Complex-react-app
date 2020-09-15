@@ -1,5 +1,6 @@
 import React from "react";
 
+// insert a modifier class using props and ternary operator
 function Container(props) {
   return (
     <>
