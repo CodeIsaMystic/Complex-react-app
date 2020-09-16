@@ -1,5 +1,6 @@
 import React, { useEffect , useState } from "react";
 import { Link, useParams } from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
 import Axios from 'axios';
 
 // Components
@@ -51,8 +52,11 @@ function ViewSinglePost() {
       <div className="d-flex justify-content-between">
         <h2>{post.title}</h2>
         <span className="pt-2">
-          <Link to="/" className="text-primary mr-2" title="Edit"><i className="fas fa-edit"></i></Link>
-          <a className="delete-post-button text-danger" title="Delete"><i className="fas fa-trash"></i></a>
+          <Link to={`/post/${post._id}/edit`} data-tip="Edit" data-for="edit" className="text-primary mr-2"><i className="fas fa-edit"></i></Link>
+          <ReactTooltip id="edit" className="custom-tooltip"/>
+          {" "}
+          <a data-tip="Delete" data-for="delete" className="delete-post-button text-danger"><i className="fas fa-trash"></i></a>
+          <ReactTooltip id="delete" className="custom-tooltip"/>
         </span>
       </div>
 
