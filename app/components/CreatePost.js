@@ -28,14 +28,14 @@ function CreatePost(props) {
       // Redirect to new post url
       appDispatch({ type: "flashMessage", value: "Congrats, you created brand new post"});
       props.history.push(`/post/${response.data}`);
-      console.log("New post created");
+      //console.log("New post created");
     } catch(error) {
-      console.log("there was a problem!!");
+      console.log("There was a problem!!");
     }
   }
 
   return (
-    <Page title="Create Post">
+    <Page title="Create New Post">
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="post-title" className="text-muted mb-1">

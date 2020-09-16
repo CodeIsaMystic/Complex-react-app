@@ -20,6 +20,7 @@ import Terms from './components/Terms';
 import CreatePost from './components/CreatePost';
 import ViewSinglePost from './components/ViewSinglePost';
 import FlashMessages from './components/FlashMessages';
+import Profile from './components/Profile';
 
 
 
@@ -30,7 +31,7 @@ function Main() {
     flashMessages: [],
     user: {
       token: localStorage.getItem("complexappToken"),
-      userName:  localStorage.getItem("complexappUserName"),
+      username:  localStorage.getItem("complexappUsername"),
       avatar:  localStorage.getItem("complexappAvatar")
     }
   };
@@ -67,12 +68,15 @@ function Main() {
 
 
   return (
-    <StateContext.Provider value={ state }>
-      <DispatchContext.Provider value={ dispatch }> 
+    <StateContext.Provider value={state}>
+      <DispatchContext.Provider value={dispatch}> 
         <BrowserRouter>
           <FlashMessages messages={state.flashMessages} />
           <Header />
           <Switch>
+            <Route path="/profile/:username">
+              <Profile />
+            </Route>
             <Route path="/" exact>
               {state.loggedIn ? <Home /> : <HomeGuest />}
             </Route>
