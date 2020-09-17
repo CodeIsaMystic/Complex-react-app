@@ -1,4 +1,5 @@
-import React, { useEffect , useContext} from "react";
+import React, { useEffect , useContext } from "react";
+import {useImmer} from 'use-immer';
 
 // Context
 import StateContext from '../StateContext';
@@ -11,6 +12,10 @@ import Page from "./Page";
 function Home() {
 
   const appState = useContext(StateContext);
+  const [state, setState] = useImmer({
+    isLoading: true,
+    feed: []
+  });
 
   return (
     <Page title="Your Feed">

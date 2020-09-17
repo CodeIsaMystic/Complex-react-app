@@ -18,7 +18,7 @@ function HeaderLoggedIn(props) {
   function handleSearchIcon(e) {
     e.preventDefault();
 
-    appDispatch({type: "openSearch"});
+    appDispatch({ type: "openSearch" });
   }
 
   return (

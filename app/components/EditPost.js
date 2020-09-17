@@ -22,7 +22,7 @@ function EditPost(props) {
     title: {
       value: "",
       hasErrors: false,
-      message: "You must provide a title."
+      message: ""
     },
     body: {
       value: "",
@@ -108,7 +108,7 @@ function EditPost(props) {
             props.history.push("/");
           }
         } else {
-          dispatch({type: "notFound"})
+          dispatch({type: "notFound"});
         }
       } catch(error) {
         console.log("There was a problem!! or the request was cancelled...");

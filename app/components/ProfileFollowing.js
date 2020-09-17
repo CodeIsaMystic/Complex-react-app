@@ -10,7 +10,7 @@ import LoadingDotsIcon from './LoadingDotsIcon';
 
 
 
-function ProfilePosts() {
+function ProfileFollowing() {
 
   const {username} =useParams();
   const [isLoading, setIsLoading] = useState(true);
@@ -23,7 +23,7 @@ function ProfilePosts() {
 
     async function fetchPosts() {
       try {
-        const response = await Axios.get(`/profile/${username}/posts`, {cancelToken: ourRequest.token});
+        const response = await Axios.get(`/profile/${username}/following`, {cancelToken: ourRequest.token});
         //console.log(response.data);
         setPosts(response.data);
         setIsLoading(false);
@@ -48,16 +48,11 @@ function ProfilePosts() {
   return (
 
       <div className="list-group">
-        {posts.map(post => {
-
-          const date = new Date(post.createdDate);
-          const dateFormatted = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
-
-
+        {posts.map((following, index) => {
           return (
-            <Link key={post._id} to={`/post/${post._id}`} className="list-group-item list-group-item-action">
-              <img className="avatar-tiny" src={post.author.avatar} /> <strong>{post.title}</strong> {" "}
-              <span className="text-muted small">on {dateFormatted} </span>
+            <Link key={index} to={`/profile/${following.username}`} className="list-group-item list-group-item-action">
+              <img className="avatar-tiny" src={following.avatar} />
+              {following.username}
             </Link>
           )
         })}
@@ -66,4 +61,4 @@ function ProfilePosts() {
   );
 }
 
-export default ProfilePosts;
+export default ProfileFollowing;
