@@ -1,12 +1,13 @@
 import React, { useEffect , useState } from "react";
 import { Link, useParams } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
+import ReactMarkdown from 'react-markdown';
 import Axios from 'axios';
 
 // Components
 import Page from "./Page";
 import LoadingDotsIcon from './LoadingDotsIcon';
-import ReactMarkdown from 'react-markdown';
+import NotFound from './NotFound';
 
 
 function ViewSinglePost() {
@@ -36,6 +37,10 @@ function ViewSinglePost() {
       ourRequest.cancel();
     }
   }, []);
+
+  if(!isLoading && !post) {
+    return <NotFound />
+  }
 
   if(isLoading) return (
     <Page title="...">
