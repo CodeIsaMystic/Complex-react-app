@@ -2,13 +2,11 @@ import React, { useEffect, useContext, useRef } from 'react';
 import { useImmer } from 'use-immer';
 import { Link } from 'react-router-dom';
 
-
 import io from 'socket.io-client';
 
 //  Context
 import StateContext from '../StateContext';
 import DispatchContext from '../DispatchContext';
-
 
 function Chat() {
   const socket = useRef(null);
@@ -21,29 +19,28 @@ function Chat() {
     chatMessages: [],
   });
 
-  
   function handleFieldChange(e) {
     const value = e.target.value;
-    
+
     setState((draft) => {
       draft.fieldValue = value;
     });
   }
-  
+
   useEffect(() => {
     if (appState.isChatOpen) {
       chatField.current.focus();
-      appDispatch({type: "clearUnreadChatCount"});
+      appDispatch({ type: 'clearUnreadChatCount' });
     }
   }, [appState.isChatOpen]);
 
   useEffect(() => {
-    socket.current = io("http://localhost:8080");
+    socket.current = io(process.env.BACKENDURL || 'https://backendformyreactapp.herokuapp.com');
 
-    socket.current.on("chatFromServer", message => {
-        setState(draft => {
-          draft.chatMessages.push(message);
-        })
+    socket.current.on('chatFromServer', (message) => {
+      setState((draft) => {
+        draft.chatMessages.push(message);
+      });
     });
 
     return () => socket.current.disconnect();
@@ -51,8 +48,8 @@ function Chat() {
 
   useEffect(() => {
     chatLog.current.scrollTop = chatLog.current.scrollHeight;
-    if(state.chatMessages.length && !appState.isChatOpen) {
-      appDispatch({type: "incrementUnreadChatCount"});
+    if (state.chatMessages.length && !appState.isChatOpen) {
+      appDispatch({ type: 'incrementUnreadChatCount' });
     }
   }, [state.chatMessages]);
 
@@ -61,7 +58,7 @@ function Chat() {
     //alert(state.fieldValue);
 
     // Send message to chat server
-    socket.current.emit("chatFromBrowser", {message: state.fieldValue, token: appState.user.token});
+    socket.current.emit('chatFromBrowser', { message: state.fieldValue, token: appState.user.token });
 
     setState((draft) => {
       // Add message to state collection of messages
@@ -98,7 +95,7 @@ function Chat() {
               </Link>
               <div className='chat-message'>
                 <div className='chat-message-inner'>
-                <Link to={`/profile/${message.username}`}>
+                  <Link to={`/profile/${message.username}`}>
                     <strong>{message.username}: </strong>
                   </Link>
                   {message.message}
