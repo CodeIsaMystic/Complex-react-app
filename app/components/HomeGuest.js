@@ -139,7 +139,7 @@ function HomeGuest() {
   }, [state.password.value]);
 
   useEffect(() => {
-    if (state.password.checkCount) {
+    if (state.username.checkCount) {
       // Send Axios requests here
       const ourRequest = Axios.CancelToken.source();
       async function fetchResults() {
